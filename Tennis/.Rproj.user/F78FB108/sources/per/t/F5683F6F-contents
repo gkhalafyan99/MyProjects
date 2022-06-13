@@ -1,0 +1,332 @@
+---
+title: "Impact of the Serve in Men's Tennis"
+author: "Gagik Khalafyan"
+date: "May, 2022"
+output:
+  pdf_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error=T, warning=F, message=F, echo=F)
+```
+
+\newpage
+
+```{r, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(reticulate)
+library(fmsb)
+library(tidyr)
+
+df = read.csv("DATA.csv")
+options(scipen = 999)
+```
+
+```{python, include=FALSE}
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("DATA.csv")
+```
+
+
+## Overview
+
+Tennis is known as one of the most attractive and popular sports globally, and a very interesting component of it is serve. Serve is a critical element of the game and plays a huge role, especially in men's tennis. At any point during the game, the server is considered to have an advantage before even the point begins; that is why the turns for serving are swapped all game long to keep the competition fair. The following study aims to analyze the influence of serve on the game and confirm that it is one of the most critical aspects.
+
+
+
+## Research Methodology
+
+The data for the research was scraped from the "The Association of Tennis Professionals (ATP)'s official web page[1]. There are 42,437 observations in it, and each one represents a men's tennis match between 2010 and 2019. There are columns about some general information: match location, winners, the number of points played, and most interestingly to us: serve components like the percentage of serves made, winning percent related to it, etc.
+
+The research mainly concentrates on creating bar plots and scatter plots for applying required comparisons between the winners of the matches and the losers, also some advanced plots for applying summarization on the findings.
+
+Main tools used in the research are R(providing the best solutions for data visualisations) and Python, which was used for some data manipulations.
+
+The final answer to the hypothesis was given using the results shown on created plots.
+
+
+
+## Literature Review
+
+Several reports are done considering different aspects of serve on the game, and they were used as a general reference to conduct our analysis.
+
+The article "Measuring the Impact of the Serve in Men’s Tennis"[2] tries to understand how many shots in the rally the serve's impact has and applies different comparisons of services for different players.
+
+There are several other articles like " The serve impact in tennis: First large-scale study of big Hawk-Eye data: The Serve Impact in Tennis"[3] and  " How Important is the Serve in Men’s Singles Tennis?"[4] that again applies different kinds of analysis about serve. 
+
+But none of the reports have looked at data from such a solid time range, and we will try to use all the power such an extensive dataset can provide us.
+
+
+## Hypothesis
+The central hypothesis of the survey is that "Serve is one of the most important component of the game and boosts the performance of the player a lot."
+
+
+\clearpage
+
+## Analysis
+
+
+ATP provides a serve rating (service metrics percentages plus the average number of aces per match and subtracts the average number of double faults per match) for each player in each match and for the provided dataset first we will check in what cases the winner has higher service rank.
+
+```{python, include=FALSE}
+serve_rating = []
+
+winner_first_serve_in_rates = []
+loser_first_serve_in_rates = []
+
+winner_first_serve_win_rate = []
+loser_first_serve_win_rate = []
+
+winner_second_serve_win_rate = []
+loser_second_serve_win_rate = []
+
+winner_break_points_save_rate = []
+loser_break_points_save_rate = []
+
+for index, row in df.iterrows():
+  if row["winner_serve_rating"] > row["loser_serve_rating"]:
+    serve_rating.append("Winner's rating > loser's rating")
+  elif row["winner_serve_rating"] < row["loser_serve_rating"]:
+    serve_rating.append("Winner's rating = loser's rating")
+  else:
+    serve_rating.append("Winner's rating < loser's rating")
+    
+  try:
+    winner_first_serve_in_rates.append(row["winner_first_serves_in"]/row["winner_first_serves_total"])
+  except:
+    winner_first_serve_in_rates.append(np.nan)
+    
+  try:
+    loser_first_serve_in_rates.append(row["loser_first_serves_in"]/row["loser_first_serves_total"])
+  except:
+    loser_first_serve_in_rates.append(np.nan)
+    
+  try:
+    winner_first_serve_win_rate.append(round(row["winner_first_serve_points_won"]/row["winner_first_serve_points_total"], 1))
+  except:
+    winner_first_serve_win_rate.append(np.nan)
+    
+  try:
+    loser_first_serve_win_rate.append(round(row["loser_first_serve_points_won"]/row["loser_first_serve_points_total"], 1))
+  except:
+    loser_first_serve_win_rate.append(np.nan)
+    
+  try:
+    winner_second_serve_win_rate.append(round(row["winner_second_serve_points_won"]/row["winner_second_serve_points_total"], 1))
+  except:
+    winner_second_serve_win_rate.append(np.nan)
+    
+  try:
+    loser_second_serve_win_rate.append(round(row["loser_second_serve_points_won"]/row["loser_second_serve_points_total"], 1))
+  except:
+    loser_second_serve_win_rate.append(np.nan)
+    
+  try:
+    winner_break_points_save_rate.append(round(row["winner_break_points_saved"]/row["winner_break_points_serve_total"], 1))
+  except:
+    winner_break_points_save_rate.append(np.nan)
+    
+  try:
+    loser_break_points_save_rate.append(round(row["loser_break_points_saved"]/row["loser_break_points_serve_total"], 1))
+  except:
+    loser_break_points_save_rate.append(np.nan)
+    
+df["Serve_rating"] = serve_rating
+
+df["Winner_first_serve_in_rates"] = winner_first_serve_in_rates
+df["Loser_first_serve_in_rates"] = loser_first_serve_in_rates
+
+df["Winner_first_serve_win_rate"] = winner_first_serve_win_rate
+df["Loser_first_serve_win_rate"] = loser_first_serve_win_rate
+
+df["Winner_second_serve_win_rate"] = winner_second_serve_win_rate
+df["Loser_second_serve_win_rate"] = loser_second_serve_win_rate
+
+df["Winner_break_points_save_rate"] = winner_break_points_save_rate
+df["Loser_break_points_save_rate"] = loser_break_points_save_rate
+
+winner_labels = ["Winner" for _ in range(len(df))]
+loser_labels = ["Loser" for _ in range(len(df))]
+
+
+averages = [round(np.nanmean(winner_first_serve_in_rates)*100), round(np.nanmean(loser_first_serve_in_rates)*100), round(np.nanmean(winner_first_serve_win_rate)*100), round(np.nanmean(loser_first_serve_win_rate)*100), round(np.nanmean(winner_second_serve_win_rate)*100), round(np.nanmean(loser_second_serve_win_rate)*100), round(np.nanmean(winner_break_points_save_rate)*100), round(np.nanmean(loser_break_points_save_rate)*100)]
+```
+
+
+
+```{r, fig.width=8, fig.cap='Serve rating comparison by status of players'}
+ ggplot(py$df, aes(x = Serve_rating)) + stat_count(fill="#059E79") +
+  labs(x="Outcome", y="Number of matches") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+From Figure 1, it is clear that in most cases player getting a higher rating for serve is the winner of the match, which is already a good starting point for confirming the hypothesis.
+
+Serve rating itself is a complex metric computed using different aspects of serve and percentage of won points is an essential component in it, thus it can only be calculated after the game is complete and is not a type of metric that can be used, for example, in predicting the winner. 
+
+Now analysis and some calculations will be applied to more trivial metrics than the ones already provided by ATP. And analysing those trivial ones, information will be gained about which one boosts the winning probability more and should have more affect on serve rating.
+
+In tennis, players are given two opportunities to serve before the point, and the first one is generally done with more power as in case of failing it the player will always get a second chance. Thus, it has more danger and creates more problems for the returning player.
+
+Now the percentage of first serves made will be calculated, and comparisons will be applied to see players with what rates generally win or lose.
+
+
+\newpage
+```{r, fig.width=8, fig.height=3.6, fig.cap='First serve in rate comparison by status of players'}
+ggplot(py$df) + 
+  geom_point(aes(x=py$winner_labels, y=Winner_first_serve_in_rates, color="Winner")) +
+  geom_point(aes(x=py$loser_labels, y=Loser_first_serve_in_rates, color="Loser")) +
+  labs(x="Player status", y="First serve in rate") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+We see that in case of rate of putting first serve in, there is not much difference between the winner and the loser, thus it doesn't seem to be the most important metric to determine the winner.
+
+Another important metric might be the number of aces: the serves that are in and are not returned by the opponent:
+
+```{r, fig.width=8, fig.height=3.6, fig.cap='Number of aces comparison by status of players'}
+ggplot(py$df) + 
+  geom_point(aes(x=py$winner_labels, y=winner_aces, color="Winner")) +
+  geom_point(aes(x=py$loser_labels, y=loser_aces, color="Loser")) +
+  labs(x="Player status", y="Number of aces") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+It is again observed that the situation for the number of aces is the same as with the first serve making percnetage and doesn't affect the winning probability much.
+
+
+\newpage
+In the rating mentioned above ATP takes in consideration also the number of total points won when making first and second serves, so those metrics also need to be analysed.
+
+```{r, fig.width=8, fig.height=3.4, fig.cap='First serve winning approximate rate for winners'}
+py$df %>% filter(Winner_first_serve_win_rate <= 1) %>%
+ggplot(aes(x = Winner_first_serve_win_rate)) + stat_count(fill="#059E79") +
+  labs(x="Winning percentage", y="Number of matches") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+Here we see a much more straightforward situation, as there are very few winners with a low first-serve winning rate. Still, with a higher winning rate, there are more, which emphasizes the importance of winning first serves. They are easier points and don't usually consume much energy because a solid first serve player gains an advantage right from the beginning of the point. And the small number of observations for too big rating is also ok, as very few players manage to win 90% or more of the points on their serve. Thus, there are not many stats for that portion.
+
+
+```{r, fig.width=8, fig.height=3.4, fig.cap='First serve winning approximate rate for losers'}
+py$df %>%  filter(Loser_first_serve_win_rate <= 1) %>%
+ggplot(aes(x = Loser_first_serve_win_rate)) + stat_count(fill="#059E79") +
+  labs(x="Winning percentage", y="Number of matches") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+In figure 5, it is visible that losers win fewer rallies on the first points, which confirms the finding from the previous plot.
+
+
+\newpage
+Now the same analysis will be applied for the second serve of the players.
+
+```{r, fig.width=8, fig.height=3.4, fig.cap='Second serve winning approximate rate for winners'}
+py$df %>% filter(Winner_second_serve_win_rate <= 1) %>%
+ggplot(aes(x = Winner_second_serve_win_rate)) + stat_count(fill="#059E79") +
+  labs(x="Winning percentage", y="Number of matches") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+We see that the chart shift to the left compared to the stats of the first serve, which confirms the hypothesis that winning points on second serve is harder as the serve is softer not to make double faults. But the main interest of the study is comparison with the stats of losers, so corresponding plot will be created.
+
+```{r, fig.width=8, fig.height=3.4, fig.cap='Second serve winning approximate rate for losers'}
+py$df %>%  filter(Loser_second_serve_win_rate <= 1) %>%
+ggplot(aes(x = Loser_second_serve_win_rate)) + stat_count(fill="#059E79") +
+  labs(x="Winning percentage", y="Number of matches") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) 
+```
+
+It is clear that the relationship between figures 4 and 5 is the same as one between 6 and  7 and having higher serve winning percentage for both serves is very important and helps to win, although there are several outliers in both cases.
+
+\newpage
+```{r,  fig.cap='Break points save rate'}
+d = py$df
+
+data <- data.frame(
+  name=c( rep("Winner",nrow(d)), rep("Loser",nrow(d)) ),
+  value=c( d[["Winner_break_points_save_rate"]], d[["Loser_break_points_save_rate"]])
+)
+
+data %>% drop_na() %>% ggplot(aes(x=name, y=value, fill=name)) +
+  geom_violin() +
+  labs(x="Player status", y="Save rate") +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        panel.grid = element_blank()) +
+  guides(fill=guide_legend(title="Player status"))
+
+```
+
+From figure 8, it is evidenced that for losers, the break points serve percentage doesn't give any critical information, while for winners, it is generally higher than 50%, thus, it can also be an essential metric.
+
+To sum up the findings, the winning rate of both serves and the break points save rate seems to be the essential components of serve that determine the winner, while the number of aces or first serve win rate doesn't seem significant.
+
+A radar chart will be created to validate those metrics (excluding the number of aces as it can't be presented in the form of rate).
+
+
+\newpage
+```{r, fig.height=8, fig.width=10, fig.cap='Comparison of different metric rates of winners and losers'}
+data <- as.data.frame(matrix(py$averages , ncol=8))
+colnames(data) <- c("W 1st serve in rate" , "W 1st serve win rate", "W 2nd serve win rate", "W break points saved rate",
+                    "L 1st serve in rate" , "L 1st serve win rate", "L 2nd serve win rate", "L break points saved rate")
+data <- rbind(rep(100,8) , rep(0,8) , data)
+
+radarchart(data, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) ,pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4,
+    cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,100,25), cglwd=0.8, vlcex=1.25)
+```
+
+The radar chart in Figure 9 confirms the study's findings, showing that the winning rate of both serves and the break points save rate are generally higher for the winners, while the rate of making the first serve is almost identical.
+
+
+
+\newpage
+## Conclusion
+
+In conclusion, the study analyzed the data about tennis match results for ten years from 2010 to 2019. The goal was to confirm the hypothesis that tennis serve significantly impacts the game result. The result of the research was satisfying, and the required hypothesis was confirmed, bringing on a couple of interesting findings on the way. 
+
+Mainly, it was found that number of aces and first serve making percentage don't play a significant role in the game, which is quite surprising, as one of the main tendencies in modern tennis is trying to make as many aces as possible and make as many first sevres as they can. But the study shows that the other aspects of serve, like the winning percentage of points on both serves and good play being under the danger of break, are much more critical, which means that hitting 20-30 aces per game won't be helpful if the players are not consistent in the rallies and are not able to survive a critical situation like being one point away from getting broken.
+
+\newpage
+
+## References
+
+[1] Official Site of Men's Professional Tennis | ATP Tour | Tennis
+https://www.atptour.com/
+
+[2] Measuring the Impact of the Serve in Men’s Tennis, September 6, 2017Author
+http://www.tennisabstract.com/blog/2017/09/06/measuring-the-impact-of-the-serve-in-mens-tennis/#:~:
+text=Since%20about%20two%2Dthirds%20of,are%20due%20to%20his%20serve.&text=These%20are%20averages%2C%20and%20the,rarely%20hew%20to%20the%20mean.
+
+[3] The serve impact in tennis: First large-scale study of big Hawk-Eye data: The Serve Impact in Tennis, June 2016
+https://www.researchgate.net/publication/304610806_The_serve_impact_in_tennis_First_large-scale_study_of_big_Hawk-Eye_data_The_Serve_Impact_in_Tennis
+
+[4] How Important is the Serve in Men’s Singles Tennis?, Mar 16, 2021
+https://www.bruinsportsanalytics.com/post/serve_importance
+
+
+
+
+
+
+
+
+

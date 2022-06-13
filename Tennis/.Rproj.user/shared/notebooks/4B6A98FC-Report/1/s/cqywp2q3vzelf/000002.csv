@@ -1,0 +1,9 @@
+"0","reticulate::repl_python()"
+"2","xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+"
+"2","xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+"
+"0","import pandas as pd"
+"0","import numpy as np"
+"0",""
+"0","df = pd.read_csv(""DATA.csv"")"

@@ -1,0 +1,12 @@
+"0","reticulate::repl_python()"
+"2","xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+"
+"2","xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+"
+"0","import pandas as pd"
+"2","Error in py_get_attr_impl(x, name, silent) : 
+  AttributeError: partially initialized module 'pprint' has no attribute 'PrettyPrinter' (most likely due to a circular import)
+"
+"0","import numpy as np"
+"0",""
+"0","df = pd.read_csv(""DATA.csv"")"

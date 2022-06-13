@@ -1,0 +1,7 @@
+"0","ggplot(py$df) + "
+"0","  geom_point(aes(x=py$winner_labels, y=winner_aces, color=""Winner"")) +"
+"0","  geom_point(aes(x=py$loser_labels, y=loser_aces, color=""Loser"")) +"
+"0","  labs(x=""Player status"", y=""Number of aces"") +"
+"0","  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),"
+"0","        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),"
+"0","        panel.grid = element_blank()) "

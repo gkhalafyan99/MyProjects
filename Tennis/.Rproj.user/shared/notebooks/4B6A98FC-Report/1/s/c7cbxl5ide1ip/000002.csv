@@ -1,0 +1,6 @@
+"0","quit"
+"0"," ggplot(py$df, aes(x = Serve_rating)) + stat_count(fill=""#059E79"") +"
+"0","  labs(x=""Outcome"", y=""Number of matches"") +"
+"0","  theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),"
+"0","        axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),"
+"0","        panel.grid = element_blank()) "
