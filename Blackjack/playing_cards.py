@@ -1,8 +1,3 @@
-#
-# playing_cards module - PSP Assignment 3, sp3, 2021.
-# DO NOT MODIFY!
-#
-
 import random
 
 
