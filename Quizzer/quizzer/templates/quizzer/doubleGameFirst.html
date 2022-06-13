@@ -1,0 +1,106 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'quizzer/doubleGame.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<main>
+    <form action="{% url 'doubleFirstResult' %}" method="POST">
+        {% csrf_token %} 
+        <input type="text" name="first" value="{{ questionNumbers.0 }}" hidden="true">
+        <input type="text" name="second" value="{{ questionNumbers.1 }}" hidden="true">
+        <input type="text" name="third" value="{{ questionNumbers.2 }}" hidden="true">
+        <input type="text" name="fourth" value="{{ questionNumbers.3 }}" hidden="true">
+        <input type="text" name="fifth" value="{{ questionNumbers.4 }}" hidden="true">
+        <input type="text" name="sixth" value="{{ questionNumbers.5 }}" hidden="true">
+        <input type="text" name="seventh" value="{{ questionNumbers.6 }}" hidden="true">
+        <input type="text" name="eighth" value="{{ questionNumbers.7 }}" hidden="true">
+        <input type="text" name="nineth" value="{{ questionNumbers.8 }}" hidden="true">
+        <input type="text" name="tenth" value="{{ questionNumbers.9 }}" hidden="true">
+
+        <input type="text" name="player1" value="{{ player1 }}" hidden="true">
+        <input type="text" name="player2" value="{{ player2 }}" hidden="true">
+
+        <section>
+            1) {{ questions.0.question }}<br>
+            <input id="11" type="radio" name="1"  value="a"> <label class="question" for="11">{{ questions.0.a }}</label> <br>
+            <input id="12" type="radio" name="1"  value="b"> <label class="question" for="12">{{ questions.0.b }}</label> <br>
+            <input id="13" type="radio" name="1"  value="c"> <label class="question" for="13">{{ questions.0.c }}</label> <br>
+            <input id="14" type="radio" name="1"  value="d"> <label class="question" for="14">{{ questions.0.d }}</label> <br><br>
+        </section>
+        <section>
+            2) {{ questions.1.question }}<br>
+            <input id="21" type="radio" name="2" value="a"> <label class="question" for="21">{{ questions.1.a }}</label> <br>
+            <input id="22" type="radio" name="2" value="b"> <label class="question" for="22">{{ questions.1.b }}</label> <br>
+            <input id="23" type="radio" name="2" value="c"> <label class="question" for="23">{{ questions.1.c }}</label> <br>
+            <input id="24" type="radio" name="2" value="d"> <label class="question" for="24">{{ questions.1.d }}</label> <br><br>
+        </section>
+        <section>
+            3) {{ questions.2.question }}<br>
+            <input id="31" type="radio" name="3" value="a"> <label class="question" for="31">{{ questions.2.a }}</label> <br>
+            <input id="32" type="radio" name="3" value="b"> <label class="question" for="32">{{ questions.2.b }}</label> <br>
+            <input id="33" type="radio" name="3" value="c"> <label class="question" for="33">{{ questions.2.c }}</label> <br>
+            <input id="34" type="radio" name="3" value="d"> <label class="question" for="34">{{ questions.2.d }}</label> <br><br>
+        </section>
+        <section>
+            4) {{ questions.3.question }}<br>
+            <input id="41" type="radio" name="4" value="a"> <label class="question" for="41">{{ questions.3.a }}</label> <br>
+            <input id="42" type="radio" name="4" value="b"> <label class="question" for="42">{{ questions.3.b }}</label> <br>
+            <input id="43" type="radio" name="4" value="c"> <label class="question" for="43">{{ questions.3.c }}</label> <br>
+            <input id="44" type="radio" name="4" value="d"> <label class="question" for="44">{{ questions.3.d }}</label> <br><br>
+        </section>
+        <section>
+            5) {{ questions.4.question }}<br>
+            <input id="51" type="radio" name="5" value="a"> <label class="question" for="51">{{ questions.4.a }}</label> <br>
+            <input id="52" type="radio" name="5" value="b"> <label class="question" for="52">{{ questions.4.b }}</label> <br>
+            <input id="53" type="radio" name="5" value="c"> <label class="question" for="53">{{ questions.4.c }}</label><br>
+            <input id="54" type="radio" name="5" value="d"> <label class="question" for="54">{{ questions.4.d }}</label> <br><br>
+        </section>
+        <section>
+            6) {{ questions.5.question }}<br>
+            <input id="61" type="radio" name="6" value="a"> <label class="question" for="61">{{ questions.5.a }}</label> <br>
+            <input id="62" type="radio" name="6" value="b"> <label class="question" for="62">{{ questions.5.b }}</label> <br>
+            <input id="63" type="radio" name="6" value="c"> <label class="question" for="63">{{ questions.5.c }}</label> <br>
+            <input id="64" type="radio" name="6" value="d"> <label class="question" for="64">{{ questions.5.d }}</label> <br><br>
+        </section>
+        <section>
+            7) {{ questions.6.question }}<br>
+            <input id="71" type="radio" name="7" value="a"> <label class="question" for="71">{{ questions.6.a }}</label> <br>
+            <input id="72" type="radio" name="7" value="b"> <label class="question" for="72">{{ questions.6.b }}</label> <br>
+            <input id="73" type="radio" name="7" value="c"> <label class="question" for="73">{{ questions.6.c }}</label> <br>
+            <input id="74" type="radio" name="7" value="d"> <label class="question" for="74">{{ questions.6.d }}</label> <br><br>
+        </section>
+        <section>
+            8) {{ questions.7.question }}<br>
+            <input id="81" type="radio" name="8" value="a"> <label class="question" for="81">{{ questions.7.a }}</label> <br>
+            <input id="82" type="radio" name="8" value="b"> <label class="question" for="82">{{ questions.7.b }}</label> <br>
+            <input id="83" type="radio" name="8" value="c"> <label class="question" for="83">{{ questions.7.c }}</label> <br>
+            <input id="84" type="radio" name="8" value="d"> <label class="question" for="84">{{ questions.7.d }}</label> <br><br>
+        </section>
+        <section>
+            9) {{ questions.8.question }}<br>
+            <input id="91" type="radio" name="9" value="a"> <label class="question" for="91">{{ questions.8.a }}</label> <br>
+            <input id="92" type="radio" name="9" value="b"> <label class="question" for="92">{{ questions.8.b }}</label> <br>
+            <input id="93" type="radio" name="9" value="c"> <label class="question" for="93">{{ questions.8.c }}</label> <br>
+            <input id="94" type="radio" name="9" value="d"> <label class="question" for="94">{{ questions.8.d }}</label> <br><br>
+        </section>
+        <section>
+            10) {{ questions.9.question }}<br>
+            <input id="101" type="radio" name="10" value="a"> <label class="question" for="101">{{ questions.9.a }}</label> <br>
+            <input id="102" type="radio" name="10" value="b"> <label class="question" for="102">{{ questions.9.b }}</label> <br>
+            <input id="103" type="radio" name="10" value="c"> <label class="question" for="103">{{ questions.9.c }}</label> <br>
+            <input id="104" type="radio" name="10" value="d"> <label class="question" for="104">{{ questions.9.d }}</label> <br><br>
+        </section>
+
+        <button id="submit" class="btn btn-primary" type="submit">Finish quiz</button>
+
+    </form>
+
+    <div id="countdown"></div>
+</main>
+    
+{% endblock %}

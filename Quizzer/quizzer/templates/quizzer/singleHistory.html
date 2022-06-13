@@ -1,0 +1,73 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'quizzer/singleHistory.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <nav id="navigator" class="navbar">
+        <div class="mainHeadingDiv">
+            <a id="mainHeading" class="doubleGames" href="{% url 'index' %}">Quizzer</a>
+            <div id="usernameLabel" class="doubleGames">{{user.username}}</div>
+        </div>
+        
+        <div id="sidebar">
+            <div id="sidebar1">
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'challenges' %}">Challenges</a>
+                </div>
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleLeaderboard' %}">Double Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleHistory' %}">Double Game History</a>
+                </div>
+            </div>
+            <div id="sidebar2">
+                <div id="singleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleLeaderboard' %}">Single Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleHistory' %}">Single Game History</a>
+                </div>
+                <div id="doubleGames">
+                    <a id="logout"  class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>     
+        </div>   
+    </nav>
+
+    <h5 style="margin-top: 0.5rem;">Single game history</h5>
+
+    <form id="singleHistoryForm">
+        {% csrf_token %}
+        Select the user: 
+        <select id="singleHistorySelect" class="btn btn-sm btn-outline-primary">
+            <option>All</option>
+            {% for user in users %}
+                <option>{{ user }}</option>
+            {% endfor %}       
+        </select>
+
+        <button id="singleHistoryButton" class="btn btn-primary" type="submit">Search</button>
+    </form>
+    
+    <table id="singleScores">
+        <tr>
+            <th class="tableUsername">User</th>
+            <th class="tableSubject">Subject</th>
+            <th class="tableScore">Score</th>
+            <th class="tableDate">Date</th>
+        </tr>
+        {% for score in scores %}
+        <tr>
+            <td class="tableUsername">{{ score.username }}</td>
+            <td class="tableSubject">{{ score.subject }}</td>
+            <td class="tableScore">{{ score.score }}</td>
+            <td class="tableDate">{{ score.time }}</td>
+        </tr> 
+        {% endfor %}
+    </table>
+
+    
+
+    
+
+{% endblock %}

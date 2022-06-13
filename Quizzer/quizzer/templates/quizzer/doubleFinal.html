@@ -1,0 +1,37 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <nav id="navigator" class="navbar navbar-expand-md navbar-light bg-light border">
+        <div>
+            <a id="mainHeading" class="navbar-brand" href="{% url 'index' %}">Quizzer</a>
+            <div class="usernameLabel">{{user.username}}</div>
+        </div>
+        
+        
+        <div id="logChange">
+            <a id="singleHistory"  class="btn btn-sm btn-outline-primary" href="{% url 'singleHistory' %}">Single Game History</a>
+            <a id="logout"  class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>    
+        </div>
+    </nav>
+
+    <div class="result">
+        Your score is {{ score }} out of 10.<br>
+        {% if winner == "draw" %}
+            The game is tied.
+        {% else %}
+            The winner is <strong>{{winner}}</strong>!!!
+        {% endif %}
+    </div>
+
+    <div class="finishBox">
+        <img class="finishImage" src="{% static 'quizzer/img/finish.jpg' %}">
+    </div>
+    
+
+    <script>
+        if ( window.history.replaceState ) {
+          window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+{% endblock %}

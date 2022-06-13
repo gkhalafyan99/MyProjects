@@ -1,0 +1,68 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'quizzer/singleLeader.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <nav id="navigator" class="navbar">
+        <div class="mainHeadingDiv">
+            <a id="mainHeading" class="doubleGames" href="{% url 'index' %}">Quizzer</a>
+            <div id="usernameLabel" class="doubleGames">{{user.username}}</div>
+        </div>
+        
+        <div id="sidebar">
+            <div id="sidebar1">
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'challenges' %}">Challenges</a>
+                </div>
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleLeaderboard' %}">Double Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleHistory' %}">Double Game History</a>
+                </div>
+            </div>
+            <div id="sidebar2">
+                <div id="singleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleLeaderboard' %}">Single Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleHistory' %}">Single Game History</a>
+                </div>
+                <div id="doubleGames">
+                    <a id="logout"  class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>     
+        </div>   
+    </nav>
+
+    <h5 style="margin-top: 0.5rem;">Single game leaderboard</h5>
+
+    <form id="singleLeaderForm">
+        Select the user: 
+        <select id="singleLeaderSelect" class="btn btn-sm btn-outline-primary">
+            <option>overall</option>
+            {% for subject in subjects %}
+                <option>{{ subject }}</option>
+            {% endfor %}       
+        </select>
+
+        <button id="singleLeaderButton" class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <table id="singleLeaders">
+        <tr>
+            <th class="tableUsername">User</th>
+            <th class="tableSubject">Possible Points</th>
+            <th class="tableScore">Gained Points</th>
+            <th class="tableDate">Percentage</th>
+        </tr>
+        {% for leader in leaders %}
+        <tr>
+            <td class="tableUsername">{{ leader.username }}</td>
+            <td class="tableSubject">{{ leader.overallPossibleScore }}</td>
+            <td class="tableScore">{{ leader.overallGainedScore }}</td>
+            <td class="tableDate">{{ leader.overallPercent }}</td>
+        </tr> 
+        {% endfor %}
+    </table>
+
+{% endblock %}

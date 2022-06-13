@@ -1,0 +1,59 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <nav id="navigator" class="navbar">
+        <div class="mainHeadingDiv">
+            <a id="mainHeading" class="doubleGames" href="{% url 'index' %}">Quizzer</a>
+            <div id="usernameLabel" class="doubleGames">{{user.username}}</div>
+        </div>
+        
+        <div id="sidebar">
+            <div id="sidebar1">
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'challenges' %}">Challenges</a>
+                </div>
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleLeaderboard' %}">Double Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleHistory' %}">Double Game History</a>
+                </div>
+            </div>
+            <div id="sidebar2">
+                <div id="singleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleLeaderboard' %}">Single Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleHistory' %}">Single Game History</a>
+                </div>
+                <div id="doubleGames">
+                    <a id="logout"  class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>     
+        </div>   
+    </nav>
+
+    <main id="indexMain">
+        <a class="subject" id="mathLabel" href="{% url 'math'  %}">
+            <div class="label">MATH</div>
+        </a>
+        <a class="subject" id="historyLabel" href="{% url 'history'  %}">
+            <div class="label">HISTORY</div>
+        </a>
+        <a class="subject" id="geographyLabel" href="{% url 'geography'  %}">
+            <div class="label">GEOGRAPHY</div>
+        </a>
+        <a class="subject" id="computersLabel" href="{% url 'computers'  %}">
+            <div class="label">COMPUTERS</div>
+        </a>
+        <a class="subject" id="biologyLabel" href="{% url 'biology'  %}">
+            <div class="label">BIOLOGY</div>
+        </a>
+        <a class="subject" id="literatureLabel" href="{% url 'literature'  %}">
+            <div class="label">LITERATURE</div>
+        </a>
+        <a class="subject" id="mixedLabel" href="{% url 'mixed'  %}">
+            <div class="label">MIXED SINGLE GAME</div>
+        </a>
+        <a class="subject" id="doubleLabel" href="{% url 'doubleIntro'  %}">
+            <div class="label">DOUBLE GAME</div>
+        </a>
+    </main>
+{% endblock %}

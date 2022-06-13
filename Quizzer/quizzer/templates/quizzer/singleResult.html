@@ -1,0 +1,47 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <nav id="navigator" class="navbar">
+        <div class="mainHeadingDiv">
+            <a id="mainHeading" class="doubleGames" href="{% url 'index' %}">Quizzer</a>
+            <div id="usernameLabel" class="doubleGames">{{user.username}}</div>
+        </div>
+        
+        <div id="sidebar">
+            <div id="sidebar1">
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'challenges' %}">Challenges</a>
+                </div>
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleLeaderboard' %}">Double Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleHistory' %}">Double Game History</a>
+                </div>
+            </div>
+            <div id="sidebar2">
+                <div id="singleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleLeaderboard' %}">Single Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleHistory' %}">Single Game History</a>
+                </div>
+                <div id="doubleGames">
+                    <a id="logout"  class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>     
+        </div>   
+    </nav>
+
+    <div class="result">
+        Your score is {{ score }} out of 8.
+    </div>
+
+    <div class="finishBox">
+        <img class="finishImage" src="{% static 'quizzer/img/finish.jpg' %}">
+    </div>
+    
+
+    <script>
+        if ( window.history.replaceState ) {
+          window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+{% endblock %}

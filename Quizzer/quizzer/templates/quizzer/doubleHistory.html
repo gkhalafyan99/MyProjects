@@ -1,0 +1,81 @@
+{% extends "quizzer/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'quizzer/doubleHistory.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <nav id="navigator" class="navbar">
+        <div class="mainHeadingDiv">
+            <a id="mainHeading" class="doubleGames" href="{% url 'index' %}">Quizzer</a>
+            <div id="usernameLabel" class="doubleGames">{{user.username}}</div>
+        </div>
+        
+        <div id="sidebar">
+            <div id="sidebar1">
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'challenges' %}">Challenges</a>
+                </div>
+                <div id="doubleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleLeaderboard' %}">Double Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'doubleHistory' %}">Double Game History</a>
+                </div>
+            </div>
+            <div id="sidebar2">
+                <div id="singleGames">
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleLeaderboard' %}">Single Game Leaderboard</a>
+                    <a   class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'singleHistory' %}">Single Game History</a>
+                </div>
+                <div id="doubleGames">
+                    <a id="logout"  class="doubleGames btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>     
+        </div>   
+    </nav>
+
+    <h5 style="margin-top: 0.5rem;">Double game history</h5>
+
+
+    <form id="singleHistoryForm">
+        {% csrf_token %}
+        Select the Player1: 
+        <select id="player1" name="player1" class="doubleHistory btn btn-sm btn-outline-primary">
+                <option>All</option>
+            {% for f in first %}
+                <option value="{{f}}">{{ f }}</option>
+            {% endfor %}       
+        </select>
+
+        Select the Player2:
+        <select id="player2" name="player2" class="doubleHistory btn btn-sm btn-outline-primary">
+                <option>All</option>
+            {% for s in second %}
+                <option value="{{s}}">{{ s }}</option>
+            {% endfor %}       
+        </select>
+
+        <button id="singleHistoryButton" class="btn btn-primary" type="submit">Search</button>
+    </form>
+    
+    <table id="singleScores">
+        <tr>
+            <th>Player 1</th>
+            <th>Score</th>
+            <th>Player2</th>
+            <th>Score</th>
+            <th>Winner</th>
+        </tr>
+        {% for score in scores %}
+            <tr>
+                <td>{{ score.player1 }}</td>
+                <td>{{ score.player1score }}</td>
+                <td>{{ score.player2 }}</td>
+                <td>{{ score.player2score }}</td>
+                <td>{{ score.winner }}</td>
+            </tr> 
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,412 @@
+body {
+    background-color: tan;
+    padding: 1rem;
+}
+
+#navigator {
+    display: flex;
+    flex-direction: row;
+    background: white;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form-control {
+    height: 2rem;
+}
+
+.btn {
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.mainHeadingDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#mainHeading {
+    font-size: 1.3rem;
+    color: black;
+}
+
+#mainHeading:hover {
+    background: none;
+    text-decoration: none;
+    color: green;
+}
+
+.username {
+    margin-bottom: 0.2rem;
+}
+
+#usernameLabel {
+    font-size: 20px;
+    color: coral;
+    margin-bottom: 0.5rem;
+}
+
+#usernameLabel:hover {
+    text-decoration: none;
+    background: none;
+}
+
+#side {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#singleGames, #doubleGames {
+    margin-right: 0.5rem;
+}
+
+.singleGames, .doubleGames {
+    height: 1.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.singleGames:hover, .doubleGames:hover {
+    background: coral;
+}
+
+.username {
+    color: coral;
+}
+
+#indexMain {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.subject {
+    border: 1px solid black;
+    height: 1rem;
+    width: 30%;
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+    color: coral;
+}
+
+.subject:hover {
+    text-decoration: none;
+    color: rgb(58, 128, 0);
+}
+
+.label {
+    background-color: white;
+}
+
+#mathLabel {
+    background-image: url("img/math.jpeg");
+    background-size: cover;
+}
+
+#historyLabel {
+    background-image: url("img/history.jpg");
+    background-size: cover;
+}
+
+#geographyLabel {
+    background-image: url("img/geography.jpg");
+    background-size: cover;
+}
+
+#computersLabel {
+    background-image: url("img/computers.jpeg");
+    background-size: cover;
+}
+
+#biologyLabel {
+    background-image: url("img/biology.jpg");
+    background-size: cover;
+}
+
+#literatureLabel {
+    background-image: url("img/literature.jpg");
+    background-size: cover;
+}
+
+
+#mixedLabel {
+    background-image: url("img/mixed.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 90%;
+}
+
+#doubleLabel {
+    background-image: url("img/double.jpg");
+    background-position: 0 -300px;
+    background-size: cover;
+    width: 90%;
+}
+
+#countdown {
+    border: 3px solid #004853;
+    background: white;
+    padding: 5px;
+    color: #004853;
+    font-family: Verdana, sans-serif, Arial;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.result {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+}
+
+.finishImage {
+    width: 90%;
+    height: 20rem;
+    margin: 0 auto;
+}
+
+.finishBox {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#singleScores, #singleLeaders {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#singleScores td, th {
+    border: 1px solid black;
+    text-align: center;
+}
+
+#singleLeaders td, th {
+    border: 1px solid black;
+    text-align: center;
+}
+
+#singleScores th {
+    background: coral;
+}
+
+#singleLeaders th {
+    background: coral;
+}
+
+#singleScores td {
+    background: rgb(255, 196, 0);
+}
+
+#singleLeaders td {
+    background: rgb(255, 196, 0);
+}
+
+select > option{
+    background: white;
+}
+
+#singleHistoryForm, #singleLeaderForm {
+    display: flex;
+    flex-direction: row;
+}
+
+#singleHistorySelect, #player1, #player2, #singleLeaderSelect {
+    margin-left: 0.3rem;
+    height: 1.7rem;
+    font-size: 0.8rem;
+}
+
+#singleHistoryButton, #singleLeaderButton {
+    margin-left: 0.3rem;
+    height: 1.7rem;
+    font-size: 0.8rem;
+}
+
+.doubleHistory {
+    margin-right: 0.5rem;
+}
+
+/************************************
+******* Middle screen ****************
+*************************************/
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 0.8rem;
+    }
+
+    #navigator {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .form-control {
+        height: 1.8rem;
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        height: 1.8rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .logRegQuestion {
+        font-size: 0.8rem;
+    }
+
+    #mainHeading {
+        font-size: 1.3rem;
+        margin-bottom: -1rem;
+    }
+
+    .subject {
+        width: 45%;
+        height: 5rem;
+    }
+
+    #tenCountdown {
+        font-size: 15px;
+    }
+
+    .result {
+        font-size: 20px;
+    }
+
+    .singleGames {
+        height: 1.2rem;
+        font-size: 0.6rem;
+        margin-bottom: 0.2rem;
+    }
+
+    #singleHistorySelect, #singleLeaderSelect {
+        margin-left: 0.2rem;
+        height: 1.4rem;
+        font-size: 0.6rem;
+    }
+    
+    #singleHistoryButton, #singleLeaderButton {
+        margin-left: 0.2rem;
+        height: 1.4rem;
+        font-size: 0.6rem;
+    }
+
+    .doubleGames {
+        width: 9rem;
+        height: 2.5rem;
+    }
+
+    #usernameLabel {
+        margin-bottom: -0.5rem;
+    }
+}
+
+
+/************************************
+******* Small screen ****************
+*************************************/
+@media screen and (max-width: 375px) {
+    body {
+        font-size: 0.6rem;
+    }
+
+    #navigator {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-control {
+        height: 1.6rem;
+        font-size: 0.6rem;
+    }
+
+    .btn {
+        height: 1.6rem;
+        font-size: 0.6rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .logRegQuestion {
+        font-size: 0.5rem;
+    }
+
+    #mainHeading {
+        font-size: 1.5rem;
+        margin-bottom: -1rem;
+    }
+
+    .subject {
+        width: 80%;
+        height: 5rem;
+    }
+
+    #tenCountdown {
+        font-size: 10px;
+    }
+
+    .result {
+        font-size: 15px;
+    }
+
+
+    .singleGames {
+        height: 0.8rem;
+        font-size: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    #singleHistorySelect, #singleLeaderSelect {
+        margin-left: 0.15rem;
+        height: 1.3rem;
+        font-size: 0.2rem;
+    }
+    
+    #singleHistoryButton, #singleLeaderButton {
+        margin-left: 0.15rem;
+        height: 1.3rem;
+        font-size: 0.2rem;
+    }
+
+    #sidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #sidebar1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #sidebar2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+  
+
